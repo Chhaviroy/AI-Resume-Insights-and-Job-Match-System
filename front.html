@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Analyzer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+        /* GLOBAL THEME */
+        body {
+            background: linear-gradient(120deg, #0a0f24, #1a2a6c, #4c6ef5);
+            background-size: 300% 300%;
+            animation: bgAnimation 10s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+        @keyframes bgAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-card {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: scale(1.03);
+        }
+
+        .heading-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .sub-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(45deg, #4c6ef5, #15aabf);
+            border: none;
+            border-radius: 40px;
+            padding: 14px 28px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-gradient:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+        }
+
+        #resultBox {
+            display: none;
+        }
+
+        /* LOADER */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            z-index: 9999;
+        }
+        .loader-circle {
+            width: 70px;
+            height: 70px;
+            border: 6px solid rgba(255,255,255,0.3);
+            border-top-color: #4c6ef5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADER OVERLAY -->
+    <div id="loader"><div class="loader-circle"></div></div>
+
+    <div class="container py-5 text-center" data-aos="fade-up">
+        <h1 class="heading-title">AI Resume Analyzer</h1>
+        <p class="sub-text">Professional-grade AI tool to analyze resume skills, projects & match with job roles</p>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6" data-aos="zoom-in" data-aos-duration="800">
+                <div class="glass-card text-center">
+                    <h3 class="mb-4">Upload Your Resume</h3>
+                    <input type="file" id="resumeFile" class="form-control mb-3" accept=".pdf,.docx" />
+                    <button class="btn-gradient w-100" onclick="analyzeResume()">Analyze Resume</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8" data-aos="fade-up" data-aos-delay="200">
+                <div id="resultBox" class="glass-card">
+                    <h4 class="mb-3">Analysis Result</h4>
+                    <pre id="outputText" style="white-space: pre-wrap; color:white;"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        function showLoader() { document.getElementById('loader').style.display = 'flex'; }
+        function hideLoader() { document.getElementById('loader').style.display = 'none'; }
+
+        async function analyzeResume() {
+            const fileInput = document.getElementById("resumeFile").files[0];
+            if (!fileInput) return alert("Please upload a resume first!");
+
+            const formData = new FormData();
+            formData.append("file", fileInput);
+
+            showLoader();
+
+            const backendURL = "https://your-backend-url.com/analyze-resume/";
+
+            try {
+                const response = await fetch(backendURL, { method: "POST", body: formData });
+                const result = await response.json();
+                hideLoader();
+
+                document.getElementById("resultBox").style.display = "block";
+                document.getElementById("outputText").innerText = JSON.stringify(result, null, 4);
+                document.getElementById("resultBox").scrollIntoView({ behavior: "smooth" });
+            } catch (error) {
+                hideLoader();
+                document.getElementById("outputText").innerText = "Server Error. Please try again.";
+            }
+        }
+    </script>
+
+</body>
+</html>
