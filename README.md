@@ -149,14 +149,14 @@ Matching & missing skill analysis
 ---
 
 ## requirements.txt
-fastapi
-uvicorn
-python-multipart
-pdfplumber
-python-docx
-google-generativeai
-sentence-transformers
-numpy
+- fastapi
+- uvicorn
+- python-multipart
+- pdfplumber
+- python-docx
+- google-generativeai
+- sentence-transformers
+- numpy
 
 ## 🧠 Models Used
 LLM
