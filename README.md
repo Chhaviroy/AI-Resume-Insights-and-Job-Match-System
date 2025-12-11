@@ -115,21 +115,21 @@ uvicorn main:app --reload
 
 Upload:
 
--Resume (PDF / DOCX)
+- Resume (PDF / DOCX)
 
 Return:
 
--Skills
+- Skills
 
--Projects
+- Projects
 
--Experience
+- Experience
 
--Summary
+- Summary
 
--Rating
+- Rating
 
--Suggestions
+- Suggestions
 
 ## 2. Match Resume with JD
 POST /match-job/
