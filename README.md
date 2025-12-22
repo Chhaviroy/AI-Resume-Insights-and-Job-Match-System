@@ -99,13 +99,15 @@ cd AI-Resume-Analyzer/backend
 Install Backend Dependencies
 pip install -r requirements.txt
 
-3️⃣ Add Your Gemini API Key
+```
+
+# 3️⃣ Add Your Gemini API Key
 
 In llm_resume.py:
 
 genai.configure(api_key="YOUR_GEMINI_API_KEY")
 
-4️⃣ Run the Backend Server
+# 4️⃣ Run the Backend Server
 uvicorn main:app --reload
 
 ```
