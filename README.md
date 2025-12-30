@@ -110,7 +110,8 @@ genai.configure(api_key="YOUR_GEMINI_API_KEY")
 # 4️⃣ Run the Backend Server
 uvicorn main:app --reload
 
-```
+---
+
 ### API Endpoints
 ## 1.analyze-resume
 
@@ -133,6 +134,8 @@ Return:
 
 - Suggestions
 
+---
+
 ## 2. Match Resume with JD
 POST /match-job/
 
@@ -148,6 +151,8 @@ Return:
 Match Score
 
 Matching & missing skill analysis
+
+
 ---
 
 ## requirements.txt
@@ -159,6 +164,8 @@ Matching & missing skill analysis
 - google-generativeai
 - sentence-transformers
 - numpy
+
+---
 
 ## 🧠 Models Used
 LLM
